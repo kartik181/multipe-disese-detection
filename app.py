@@ -137,16 +137,16 @@ if selected == 'Heart Disease Prediction':
     # creating a button for Prediction
 
     if st.button('Heart Disease Test Result'):
-        # Check for empty values
-         if '' in user_input:
+        heart_input = [age, sex, cp, trestbps, chol, fbs, restecg,
+                       thalach, exang, oldpeak, slope, ca, thal]
+
+        if '' in heart_input:
             st.error("Please enter all the values before running the prediction.")
-         else:
+        else:
             try:
-                user_input = [age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]
+                heart_input = [float(x) for x in heart_input]
 
-                user_input = [float(x) for x in user_input]
-
-                heart_prediction = heart_disease_model.predict([user_input])
+                heart_prediction = heart_disease_model.predict([heart_input])
 
                 if heart_prediction[0] == 1:
                     heart_diagnosis = 'The person is having heart disease'
@@ -156,6 +156,7 @@ if selected == 'Heart Disease Prediction':
                 st.success(heart_diagnosis)
             except ValueError:
                 st.error("Please enter valid numeric values.")
+
 
 # Parkinson's Prediction Page
 if selected == "Parkinsons Prediction":
@@ -236,18 +237,17 @@ if selected == "Parkinsons Prediction":
 
     # creating a button for Prediction    
     if st.button("Parkinson's Test Result"):
-        if '' in user_input:
+        parkinsons_input = [fo, fhi, flo, Jitter_percent, Jitter_Abs,
+                            RAP, PPQ, DDP, Shimmer, Shimmer_dB, APQ3, APQ5,
+                            APQ, DDA, NHR, HNR, RPDE, DFA, spread1, spread2, D2, PPE]
+
+        if '' in parkinsons_input:
             st.error("Please enter all the values before running the prediction.")
         else:
             try:
+                parkinsons_input = [float(x) for x in parkinsons_input]
 
-                user_input = [fo, fhi, flo, Jitter_percent, Jitter_Abs,
-                            RAP, PPQ, DDP,Shimmer, Shimmer_dB, APQ3, APQ5,
-                            APQ, DDA, NHR, HNR, RPDE, DFA, spread1, spread2, D2, PPE]
-
-                user_input = [float(x) for x in user_input]
-
-                parkinsons_prediction = parkinsons_model.predict([user_input])
+                parkinsons_prediction = parkinsons_model.predict([parkinsons_input])
 
                 if parkinsons_prediction[0] == 1:
                     parkinsons_diagnosis = "The person has Parkinson's disease"
